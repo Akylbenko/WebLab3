@@ -1,0 +1,124 @@
+aside a {
+    text-decoration: none;
+}
+
+body {
+    background: #2c2c2c;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+}
+
+aside {
+    float: none;
+    background: #181818;
+    width: 22%;
+    padding: 2.5%;
+    border-right: 5px solid #4d4d4d;
+    color: #fff;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+aside img {
+    width: 80px;
+    float: left;
+}
+
+aside .logo {
+    font-size: 40px;
+    margin-left: 10px;
+    font-weight: bold;
+    position: relative;
+    top: 10px;
+}
+
+aside h3 {
+    margin-top: 80px;
+    font-size: 30px;
+}
+
+aside ul {list-style: none}
+
+aside ul li a {
+    color: #fff;
+    display: block;
+    margin-top: 30px;
+    transition: transition ease;
+    font-size: 17px;
+}
+
+aside ul li:hover, aside ul a:hover {
+    color: #eb5959;
+    text-decoration: none;
+    transform: scale(1.05);
+}
+
+main .features {
+    float: left;
+    color: white;
+    margin-top: 80px;
+    text-align: center;
+    width: 75%;
+}
+
+main .features h1 {font-size: 50px;}
+main .features p {font-size: 25px; margin: 25px;}
+
+form {
+    margin-left: 32%;
+    margin-top: 50px;
+    width: 500px;
+}
+
+.alert-warning {
+    float: center;
+    width: 700px;
+    margin: 20px;
+    margin-left: 23%;
+    text-align: left;
+}
+
+.alert-info {
+    float: center;
+    width: 700px;
+    margin: 20px 25%;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.error-message {
+    color: red;
+    margin: 10px;
+    text-align: center;
+    background: white;
+    border-radius: 5px;
+}
+
+h1 {
+    margin-left: 11%;
+}
+
+h2 {
+    margin-top: 40px;
+    margin-left: 11%;
+}
+
+.simple-text {
+    float: left;
+    color: white;
+    text-align: left;
+    font-size: 25px;
+}
+
+
+
+
+
+
+
+
