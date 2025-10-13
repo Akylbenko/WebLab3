@@ -14,7 +14,7 @@ class FeedbacksForm(ModelForm):
 class ArticlesForm(ModelForm):
     class Meta:
         model = Article
-        fields = ['title', 'text', 'created_date']
+        fields = ['title', 'text', 'created_date', 'user_id']
         widgets = {
             "title": TextInput(attrs={'class':'form-control', 'placeholder':'Заголовок'}),
             "text": Textarea(attrs={'class':'form-control', 'placeholder':'Текст'}),
