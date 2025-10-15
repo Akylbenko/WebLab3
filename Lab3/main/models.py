@@ -27,9 +27,18 @@ class User(models.Model):
         verbose_name_plural = 'Пользователи'
 
 class Article(models.Model):
+    category_choices = [
+        ('sports', 'Спорт'),
+        ('politics', 'Политика'),
+        ('business', 'Бизнес'),
+        ('science', 'Наука'),
+        ('other', 'Другое'),
+    ]
+
     title = models.CharField('Заголовок', max_length=50)
     text = models.TextField('Текст статьи')
     created_date = models.DateTimeField('Дата создания', default=timezone.now)
+    category = models.CharField('Категория', choices=category_choices, default='other', max_length=50)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
+from unicodedata import category
+
 from .forms import FeedbacksForm, ArticlesForm
 from .models import Feedbacks, User, Article
 
@@ -9,9 +11,11 @@ def home(request):
     return render(request, 'main/home.html')
 
 def about(request):
+
     return render(request, 'main/about.html')
 
 def contact(request):
+
     return render(request, 'main/contact.html')
 
 def feedback(request):
@@ -34,6 +38,28 @@ def feedback(request):
         data = {'form': form, 'Feedbacks': allFeedbacks}
 
     return render(request, 'main/feedback.html', data)
+
+def articles(request, category=None):
+
+    all_categories = dict(Article.category_choices)
+    if category:
+        if category not in all_categories:
+            raise Http404("Категория не найдена")
+
+        articles_list = Article.objects.filter(category=category).order_by('-created_date')
+        current_category = all_categories[category]
+    else:
+        articles_list = Article.objects.all().order_by('-created_date')
+        current_category = "Все новости"
+
+    data = {
+        'articles': articles_list,
+        'categories': Article.category_choices,
+        'current_category': current_category,
+        'selected_category': category,
+    }
+
+    return render(request, 'main/articles.html', data)
 
 def create_article(request):
 
@@ -74,3 +100,4 @@ def delete_article(request, id):
 
 def news(request, id):
     return HttpResponse(f"Статья {id}")
+

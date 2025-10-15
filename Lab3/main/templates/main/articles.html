@@ -1,0 +1,57 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Новости{% endblock %}
+
+{% block content %}
+<div class="features">
+    <h1 style="margin-bottom: 20px;">Новости</h1>
+
+    <div class="category-filter" style="margin-bottom: 30px;">
+        <h3>Фильтр по категориям:</h3>
+        <div class="btn-group" role="group">
+            <a href="{% url 'articles' %}" class="btn btn-{% if not selected_category %}primary{% else %}outline-primary{% endif %}">
+                Все категории
+            </a>
+            {% for key, value in categories.items %}
+            <a href="{% url 'articles_by_category' category=key %}" class="btn btn-{% if selected_category == key %}primary{% else %}outline-primary{% endif %}">
+                {{ value }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <h2 style="margin-bottom: 30px;">{{ current_category }}</h2>
+
+    {% if articles %}
+        {% for article in articles %}
+            <div class="alert alert-warning">
+                <h3>{{ article.title }}</h3>
+                <p>{{ article.text|truncatewords:30 }}</p>
+                <div class="article-meta" style="margin-top: 15px;">
+                    <small>
+                        <strong>Категория:</strong>
+                        <span class="badge bg-secondary">{{ article.get_category_display }}</span> |
+                        <strong>Дата:</strong> {{ article.created_date|date:"d.m.Y H:i" }} |
+                        <strong>Автор:</strong> {{ article.user_id.name }}
+                    </small>
+                </div>
+                <div style="margin-top: 10px;">
+                    <a href="{% url 'edit_article' article.id %}" class="btn btn-sm btn-outline-primary">Редактировать</a>
+                    <a href="{% url 'delete_article' article.id %}" class="btn btn-sm btn-outline-danger">Удалить</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-info">
+            <p>
+                {% if selected_category %}
+                    В категории "{{ current_category }}" пока нет новостей.
+                {% else %}
+                    Пока нет новостей. Будьте первым!
+                {% endif %}
+            </p>
+            <a href="{% url 'create_article' %}" class="btn btn-primary">Создать новость</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
