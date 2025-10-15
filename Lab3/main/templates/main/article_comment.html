@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+<div class="features">
+    <h1>{{ article.title }}</h1>
+    <div class="alert alert-info">
+        <p>{{ article.text }}</p>
+        <div class="article-meta">
+            <small>
+                <strong>Категория:</strong> {{ article.get_category_display }} |
+                <strong>Дата:</strong> {{ article.created_date|date:"d.m.Y H:i" }} |
+                <strong>Автор:</strong> {{ article.user_id.name }}
+            </small>
+        </div>
+    </div>
+    <h3>Комментарии</h3>
+    {% if comments %}
+        {% for comment in comments %}
+        <div class="alert alert-light">
+            <p><strong>{{ comment.author_name }}</strong> - {{ comment.date|date:"d.m.Y H:i" }}</p>
+            <p>{{ comment.text }}</p>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-info">
+            <p>Пока нет комментариев. Будьте первым!</p>
+        </div>
+    {% endif %}
+
+    <h3>Добавить комментарий:</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p}}
+        <button type="submit" class="btn btn-primary">Отправить комментарий</button>
+    </form>
+</div>
+{% endblock %}

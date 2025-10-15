@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 from unicodedata import category
 
-from .forms import FeedbacksForm, ArticlesForm
+from .forms import FeedbacksForm, ArticlesForm, CommentForm
 from .models import Feedbacks, User, Article
 
 
@@ -61,6 +61,23 @@ def articles(request, category=None):
 
     return render(request, 'main/articles.html', data)
 
+def article_comment(request, article_id):
+    article = get_object_or_404(Article, id=article_id)
+    comments = article.comment_set.all().order_by('-date')
+
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.article_id = article
+            comment.save()
+            return redirect('article_comment', article_id=article_id)
+    else:
+        form = CommentForm()
+
+    data = {'article': article, 'form': form, 'comments': comments}
+    return render(request, 'main/article_comment.html', data)
+
 def create_article(request):
 
     if not User.objects.exists():
@@ -83,9 +100,9 @@ def edit_article(request, id):
         form = ArticlesForm(request.POST, instance=article)
         if form.is_valid():
             form.save()
-            return redirect('home')
-        else:
-            form = ArticlesForm(instance=article)
+            return redirect('articles')
+    else:
+        form = ArticlesForm(instance=article)
 
         return render(request, 'main/edit_article.html', {'form': form, 'article': article})
 
@@ -94,7 +111,7 @@ def delete_article(request, id):
 
     if request.method == "POST":
         article.delete()
-        return redirect('home')
+        return redirect('articles')
 
     return render(request, 'main/delete_article.html', {'article': article})
 

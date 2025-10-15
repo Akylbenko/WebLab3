@@ -38,6 +38,7 @@
                 <div style="margin-top: 10px;">
                     <a href="{% url 'edit_article' article.id %}" class="btn btn-sm btn-outline-primary">Редактировать</a>
                     <a href="{% url 'delete_article' article.id %}" class="btn btn-sm btn-outline-danger">Удалить</a>
+                    <a href="{% url 'article_comment' article.id %}" class="btn btn-sm btn-outline-success">Комментировать</a>
                 </div>
             </div>
         {% endfor %}

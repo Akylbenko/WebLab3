@@ -47,3 +47,17 @@ class Article(models.Model):
     class Meta:
         verbose_name = 'Новость'
         verbose_name_plural = 'Новости'
+
+class Comment(models.Model):
+
+    text = models.TextField('Текст')
+    date = models.DateTimeField('Дата создания', default=timezone.now)
+    article_id = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Статья')
+    author_name = models.CharField('Автор', max_length=50)
+
+    def __str__(self):
+        return f"Комментарий от {self.author_name} к статье '{self.article_id.title}'"
+
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
