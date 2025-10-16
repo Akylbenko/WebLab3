@@ -1,5 +1,5 @@
-from django.forms import ModelForm, TextInput, Textarea, DateInput, Select
-from .models import Feedbacks, Article, Comment
+from django.forms import ModelForm, TextInput, Textarea, DateInput, Select, Form, PasswordInput
+from .models import Feedbacks, Article, Comment, User
 
 
 class FeedbacksForm(ModelForm):
@@ -30,4 +30,14 @@ class CommentForm(ModelForm):
         widgets = {
             "author_name": TextInput(attrs={'class':'form-control', 'placeholder':'Автор'}),
             "text": Textarea(attrs={'class':'form-control', 'placeholder':'Комментарий'}),
+        }
+
+class LoginForm(Form):
+    class Meta:
+        model = User
+        fields = ['username', 'email','password']
+        widgets = {
+            "username": TextInput(attrs={'class':'form-control', 'placeholder':'Имя пользователя'}),
+            "email": TextInput(attrs={'class':'form-control', 'placeholder':'Почта'}),
+            "password": PasswordInput(attrs={'class':'form-control', 'placeholder':'Пароль'}),
         }

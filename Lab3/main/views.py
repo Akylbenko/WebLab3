@@ -115,6 +115,13 @@ def delete_article(request, id):
 
     return render(request, 'main/delete_article.html', {'article': article})
 
+def login_view(request):
+
+    # if request.method == "POST":
+
+
+    return render(request, 'main/login.html')
+
 def news(request, id):
     return HttpResponse(f"Статья {id}")
 
