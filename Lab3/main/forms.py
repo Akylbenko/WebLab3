@@ -1,6 +1,6 @@
-from django.forms import ModelForm, TextInput, Textarea, DateInput, Select, Form, PasswordInput
+from django.forms import ModelForm, TextInput, Textarea, DateInput, Select, Form, PasswordInput, EmailInput, forms
 from .models import Feedbacks, Article, Comment, User
-
+from django import forms
 
 class FeedbacksForm(ModelForm):
     class Meta:
@@ -32,12 +32,22 @@ class CommentForm(ModelForm):
             "text": Textarea(attrs={'class':'form-control', 'placeholder':'Комментарий'}),
         }
 
-class LoginForm(Form):
-    class Meta:
-        model = User
-        fields = ['username', 'email','password']
-        widgets = {
-            "username": TextInput(attrs={'class':'form-control', 'placeholder':'Имя пользователя'}),
-            "email": TextInput(attrs={'class':'form-control', 'placeholder':'Почта'}),
-            "password": PasswordInput(attrs={'class':'form-control', 'placeholder':'Пароль'}),
-        }
+class RegistrationForm(forms.Form):
+    username = forms.CharField(
+        widget=TextInput(attrs={'class':'form-control', 'placeholder':'Имя пользователя'}),
+        max_length=50
+    )
+    email = forms.EmailField(
+        widget=EmailInput(attrs={'class':'form-control', 'placeholder':'Почта'})
+    )
+    password = forms.CharField(
+        widget=PasswordInput(attrs={'class':'form-control', 'placeholder':'Пароль'})
+    )
+
+class LoginForm(forms.Form):
+    email = forms.EmailField(
+        widget=EmailInput(attrs={'class':'form-control', 'placeholder':'Почта'})
+    )
+    password = forms.CharField(
+        widget=PasswordInput(attrs={'class':'form-control', 'placeholder':'Пароль'})
+    )

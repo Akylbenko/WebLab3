@@ -4,11 +4,11 @@
 
 {% block content %}
 <div class="features">
-    <h1 style="margin-bottom: 20px;">Новости</h1>
+    <h1 style="margin-bottom: 20px; margin-left: 14%;">Новости</h1>
 
     <div class="category-filter" style="margin-bottom: 30px;">
-        <h3>Фильтр по категориям:</h3>
-        <div class="btn-group" role="group">
+        <h3 style="margin-left: 14%; margin-bottom: 30px;">Фильтр по категориям:</h3>
+        <div class="btn-group" role="group" style="margin-left: 14%;">
             <a href="{% url 'articles' %}" class="btn btn-{% if not selected_category %}primary{% else %}outline-primary{% endif %}">
                 Все категории
             </a>
@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <h2 style="margin-bottom: 30px;">{{ current_category }}</h2>
+    <h2 style="margin-bottom: 30px; margin-left: 14%;">{{ current_category }}</h2>
 
     {% if articles %}
         {% for article in articles %}
